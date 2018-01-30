@@ -1,0 +1,14 @@
+#+TITLE: Camagru TODO's
+
+* DONE Send email to activate account
+CLOSED: [2018-01-29 lun. 10:47]
+* DONE Allow reseting of password
+CLOSED: [2018-01-30 mar. 18:34]
+* TODO Allow editing account parameters  
+* TODO Add header 
+* TODO Pictures taking
+* TODO Fix PHP's sendmail with NixOS
+* Errors messages
+** DONE Use proper error messaging
+CLOSED: [2018-01-30 mar. 15:37]
+** TODO Add error message when login on inactive account

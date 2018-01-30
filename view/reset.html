@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <head>
+        <title>Camagru reset password</title>
+        <link rel="stylesheet" type="text/css" href="/css/basic.css">
+    </head>
+
+    <body>
+        <div class="login">
+            <h2>Reset password</h2>
+            <form method='post'>
+                <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum" required>
+                <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()" required>
+                <button name="action" value="register" type='submit'>Reset password</button>
+            </form>
+            <p><?=$msg?></p>
+        </div>
+
+        <script language='javascript' type='text/javascript'>
+         function confirm_password() {
+             var password = document.getElementById('password');
+             var password_repeat = document.getElementById('password_repeat');
+             if (password.value != password_repeat.value) {
+                 password_repeat.setCustomValidity('Passwords must be matching.');
+             } else {
+                 // input is valid -- reset the error message
+                 password_repeat.setCustomValidity('');
+             }
+         }
+        </script>
+    </body>
+</html>

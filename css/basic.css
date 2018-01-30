@@ -1,0 +1,96 @@
+/* * Minimal */
+/* body{ */
+/*     margin:1em auto; */
+/*     max-width:40em; */
+/*     padding:0 .62em; */
+/*     font:1.2em/1.62 sans-serif; */
+/* } */
+/* h1,h2,h3 { */
+/*     line-height:1.2; */
+/* } */
+/* @media print{ */
+/*     body{ */
+/*         max-width:none; */
+/*     } */
+/* } */
+
+/* * Theme */
+@import url(http://thomasf.github.io/solarized-css/solarized-dark.min.css);
+
+body {
+    border: unset;
+}
+html {
+    background-color: unset;
+}
+button::-moz-focus-inner {
+    border: 0;
+}
+
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* * Header */
+header {
+    background-color: #073642;
+    padding: 0.3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+header a {
+    margin: 0em 1.2em;
+}
+#user_link {
+    margin-left: auto;
+}
+#camagru_title {
+    color: #859900;
+    font-size: 1.8em;
+    font-family: 'PT Sans Narrow',sans-serif;
+    font-weight: 700;
+}
+#camagru_title:hover {
+    text-decoration: none;
+}
+/* * Login */
+.login {
+    margin:0 auto;
+    width:30vw;
+}
+.login h2 {
+    text-align: center;
+}
+input {
+    margin-bottom:3px;
+    padding:10px;
+    width: 100%;
+    border:1px solid #CCC;
+    box-sizing: border-box
+}
+label {
+    cursor:pointer;
+    float: right;
+    margin: 5px;
+}
+#form-switch {
+    display:none;
+}
+#register-form {
+    display:none;
+}
+#form-switch:checked~#register-form {
+    display:block;
+}
+#form-switch:checked~#login-form {
+    display:none;
+}
+#forgot-password {
+    margin: 0.3em 0em;
+    font-size: .9em;
+}

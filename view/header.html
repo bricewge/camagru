@@ -1,0 +1,13 @@
+<header>
+    <a id="camagru_title" href="/">Camagru</a>
+    <!-- <div id="log_in_out"> -->
+        <?PHP
+        if (isset($_SESSION["username"])) {
+          echo '<a id="user_link" href="/user.php">' . $_SESSION["username"] . '</a>';
+          echo '<a href="/login.php?logout=true">logout</a>';
+        }
+        else
+          echo '<a href="/login.php">login</a>';
+        ?>
+    <!-- </div> -->
+</header>
