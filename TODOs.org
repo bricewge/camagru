@@ -4,9 +4,13 @@
 CLOSED: [2018-01-29 lun. 10:47]
 * DONE Allow reseting of password
 CLOSED: [2018-01-30 mar. 18:34]
+* DONE Add header 
+CLOSED: [2018-01-31 mer. 00:47]
 * TODO Allow editing account parameters  
-* TODO Add header 
-* TODO Pictures taking
+* DONE Add footer 
+CLOSED: [2018-01-31 mer. 17:03]
+* TODO Add pictures taking
+* TODO Add gallery 
 * TODO Fix PHP's sendmail with NixOS
 * Errors messages
 ** DONE Use proper error messaging
