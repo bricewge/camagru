@@ -1,6 +1,7 @@
 <?PHP
 
 
+$msg = "";
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   include_once("view/reset.html");
   die();
