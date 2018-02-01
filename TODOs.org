@@ -6,12 +6,14 @@ CLOSED: [2018-01-29 lun. 10:47]
 CLOSED: [2018-01-30 mar. 18:34]
 * DONE Add header 
 CLOSED: [2018-01-31 mer. 00:47]
-* TODO Allow editing account parameters  
+* DONE Allow editing account parameters  
+CLOSED: [2018-02-01 jeu. 14:27]
 * DONE Add footer 
 CLOSED: [2018-01-31 mer. 17:03]
 * TODO Add pictures taking
 * TODO Add gallery 
 * TODO Fix PHP's sendmail with NixOS
+* TODO Verify that the password isn't common
 * Errors messages
 ** DONE Use proper error messaging
 CLOSED: [2018-01-30 mar. 15:37]

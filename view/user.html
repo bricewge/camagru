@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <head>
+        <title>Camagru user settings</title>
+        <link rel="stylesheet" type="text/css" href="/css/basic.css">
+    </head>
+
+    <body>
+        <?PHP include "header.html";?>
+
+        <div class="login">
+            <h2>User settings</h2>
+            <form method='post'>
+                <h4>Account</h4>
+                <input name="username" type="text" value="<?=$settings['username']?>">
+                <input name="email" type="email" value="<?=$settings['email']?>">
+                <h4>Password</h4>
+                <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum">
+                <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()">
+                <h4>Notifications</h4>
+                <div class="checkbox">
+                <input id="notify" name="notify" type="checkbox" <?PHP if ($settings['notify_on_comment'] == 1) echo('checked="checked"'); ?>>
+                <lablel for="notify">Receive an email when your images are commented.</label>
+                </div>
+                <button type='submit'>Save</button>
+            </form>
+            <p><?=$msg?></p>
+        </div>
+
+        <?PHP include "footer.html";?>
+
+        <script language='javascript' type='text/javascript'>
+         function confirm_password() {
+             var password = document.getElementById('password');
+             var password_repeat = document.getElementById('password_repeat');
+             if (password.value != password_repeat.value) {
+                 password_repeat.setCustomValidity('Passwords must be matching.');
+             } else {
+                 // input is valid -- reset the error message
+                 password_repeat.setCustomValidity('');
+             }
+         }
+        </script>
+    </body>
+</html>

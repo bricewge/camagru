@@ -27,15 +27,22 @@ html {
     background-color: unset;
     height: 100%;
 }
-button::-moz-focus-inner {
-    border: 0;
+label {
+    cursor: pointer;
+    float: right;
+    margin: 0.6em 0;
 }
-
+button {
+    margin: 0.6em 0;
+}
 a:link {
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
+}
+input[type='checkbox'] {
+    width: 0;
 }
 
 /* * Header */
@@ -88,11 +95,6 @@ input {
     border:1px solid #CCC;
     box-sizing: border-box
 }
-label {
-    cursor:pointer;
-    float: right;
-    margin: 5px;
-}
 #form-switch {
     display:none;
 }
@@ -109,3 +111,4 @@ label {
     margin: 0.3em 0em;
     font-size: .9em;
 }
+/* * Users */
