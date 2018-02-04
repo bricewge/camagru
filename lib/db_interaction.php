@@ -37,7 +37,6 @@ function authenticate($db, $username, $password) {
     $stmt->bindParam(":username", $username, PDO::PARAM_STR, 255);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    // var_dump(password_verify($_POST["password"], $result["password"]));
   } catch (PDOException $e) {
     error_log("DB ERROR: ". $e->getMessage());
     die();
@@ -60,4 +59,17 @@ function add_email($db, $username, $action) {
   return $token;
 };
 
+function get_images($db, $limit) {
+  try {
+    $query = "SELECT path FROM images LIMIT :limit;";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log("DB ERROR: ". $e->getMessage());
+    die();
+  }
+  return $result;
+}
 ?>

@@ -1,0 +1,11 @@
+<div class="sidebar">
+    <?PHP
+    require_once("config/database.php");
+    $db = db_connect();
+
+    $images = get_images($db, 5);
+
+    foreach($images as $image)
+    echo  "<img src='". $image['path'] ."' alt='image'>"
+    ?>
+</div>

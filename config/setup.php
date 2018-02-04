@@ -39,6 +39,8 @@ try {
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`));");
+  $db->exec("INSERT INTO users(username, email, password, active)
+  VALUES('toto', 'to@t.o', '". password_hash("toto", PASSWORD_BCRYPT) ."', 1);");
 
 // ** emails
   $db->exec("CREATE TABLE `emails` (
@@ -53,8 +55,25 @@ try {
   $db->exec("CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `creation_date` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`));");
+
+// ** likes
+  $db->exec("CREATE TABLE `likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `image_id` int(255) NOT NULL,
+  PRIMARY KEY (`id`));");
+
+// ** comments
+  $db->exec("CREATE TABLE `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `image_id` int(255) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `comment_number` int(11) NOT NULL,
+  PRIMARY KEY (`id`));");
+
 
 } catch (PDOException $e) {
   die("DB ERROR: ". $e->getMessage());
