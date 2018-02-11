@@ -24,6 +24,7 @@ if ($_POST['action'] === "login") {
     $msg = "Bad login.";
   else {
     $_SESSION["username"] = $username;
+    echo ("<script>window.location.href='/';</script>");
   }
 }
 else if ($_POST['action'] === "register") {

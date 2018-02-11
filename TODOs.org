@@ -11,7 +11,8 @@ CLOSED: [2018-02-01 jeu. 14:27]
 * DONE Add footer 
 CLOSED: [2018-01-31 mer. 17:03]
 * TODO Add pictures taking
-* TODO Add gallery 
+* DONE Add gallery
+CLOSED: [2018-02-11 dim. 11:12]
 * TODO Fix PHP's sendmail with NixOS
 * TODO Verify that the password isn't common
 * Errors messages

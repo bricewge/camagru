@@ -11,23 +11,25 @@
     <body>
         <?PHP include "header.html";?>
 
-        <div class="login">
-            <h2>User settings</h2>
-            <form method='post'>
-                <h4>Account</h4>
-                <input name="username" type="text" value="<?=$settings['username']?>">
-                <input name="email" type="email" value="<?=$settings['email']?>">
-                <h4>Password</h4>
-                <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum">
-                <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()">
-                <h4>Notifications</h4>
-                <div class="checkbox">
-                <input id="notify" name="notify" type="checkbox" <?PHP if ($settings['notify_on_comment'] == 1) echo('checked="checked"'); ?>>
-                <lablel for="notify">Receive an email when your images are commented.</label>
-                </div>
-                <button type='submit'>Save</button>
-            </form>
-            <p><?=$msg?></p>
+        <div class="content">
+            <div class="login">
+                <h2>User settings</h2>
+                <form method='post'>
+                    <h4>Account</h4>
+                    <input name="username" type="text" value="<?=$settings['username']?>">
+                    <input name="email" type="email" value="<?=$settings['email']?>">
+                    <h4>Password</h4>
+                    <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum">
+                    <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()">
+                    <h4>Notifications</h4>
+                    <div class="checkbox">
+                        <input id="notify" name="notify" type="checkbox" <?PHP if ($settings['notify_on_comment'] == 1) echo('checked="checked"'); ?>>
+                        <lablel for="notify">Receive an email when your images are commented.</label>
+                    </div>
+                    <button type='submit'>Save</button>
+                </form>
+                <p><?=$msg?></p>
+            </div>
         </div>
 
         <?PHP include "footer.html";?>

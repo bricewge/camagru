@@ -59,10 +59,11 @@ function add_email($db, $username, $action) {
   return $token;
 };
 
-function get_images($db, $limit) {
+function get_images($db, $offset, $limit) {
   try {
-    $query = "SELECT path FROM images LIMIT :limit;";
+    $query = "SELECT path FROM images ORDER BY id DESC LIMIT :offset, :limit;";
     $stmt = $db->prepare($query);
+    $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

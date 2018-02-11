@@ -11,28 +11,30 @@
     <body>
         <?PHP include "header.html";?>
 
-        <div class="editing">
-            <h2>Take a picture</h2>
-            <div class="capture">
-                <div class="camera">
-                    <video id="video">Video stream not available.</video>
+        <div class="content">
+            <div class="editing">
+                <h2>Take a picture</h2>
+                <div class="capture">
+                    <div class="camera">
+                        <video id="video">Video stream not available.</video>
+                    </div>
+                    <canvas id="canvas">
+                    </canvas>
+                    <div class="output">
+                        <img id="photo" alt="The screen capture will appear in this box.">
+                    </div>
                 </div>
-                <canvas id="canvas">
-                </canvas>
-                <div class="output">
-                    <img id="photo" alt="The screen capture will appear in this box.">
+                <button id="startbutton">Take photo</button>
+                <h2>Upload a picture</h2>
+                <div class="upload">
+                    <form action="editing.php" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="image">
+                        <button name="action" value="upload" type='submit'>Upload</button>
+                        <!-- <input type="submit"> -->
+                    </form>
                 </div>
+                <p><?=$msg?></p>
             </div>
-            <button id="startbutton">Take photo</button>
-            <h2>Upload a picture</h2>
-            <div class="upload">
-                <form action="editing.php" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="image">
-                    <button name="action" value="upload" type='submit'>Upload</button>
-                    <!-- <input type="submit"> -->
-                </form>
-            </div>
-            <p><?=$msg?></p>
         </div>
 
         <?PHP require "sidebar.html";?>

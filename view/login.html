@@ -11,27 +11,29 @@
     <body>
         <?PHP include "header.html";?>
 
-        <div class="login">
-            <h2>Login</h2>
-            <input type='checkbox' id='form-switch'>
-            <form id='login-form' action="" method='post'>
-                <input name="username" type="text" placeholder="Username" required>
-                <input name="password" type="password" placeholder="Password" required>
-                <button name="action" value="login" type='submit'>Login</button>
-                <label for='form-switch'><span>Register</span></label>
-            </form>
-            <form id='register-form' action="" method='post'>
-                <input name="username" type="text" placeholder="Username" required>
-                <input name="email" type="email" placeholder="Email" required>
-                <input id="password" name="password" type="password" placeholder="Password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum" required>
-                <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()" required>
-                <button name="action" value="register" type='submit'>Register</button>
-                <label for='form-switch'>Sign in</label>
-            </form>
-            <div id="forgot-password">
-                <a href="/forgot.php">Forgot your password?</a>
+        <div class="content">
+            <div class="login">
+                <h2>Login</h2>
+                <input type='checkbox' id='form-switch'>
+                <form id='login-form' action="" method='post'>
+                    <input name="username" type="text" placeholder="Username" required>
+                    <input name="password" type="password" placeholder="Password" required>
+                    <button name="action" value="login" type='submit'>Login</button>
+                    <label for='form-switch'><span>Register</span></label>
+                </form>
+                <form id='register-form' action="" method='post'>
+                    <input name="username" type="text" placeholder="Username" required>
+                    <input name="email" type="email" placeholder="Email" required>
+                    <input id="password" name="password" type="password" placeholder="Password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum" required>
+                    <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()" required>
+                    <button name="action" value="register" type='submit'>Register</button>
+                    <label for='form-switch'>Sign in</label>
+                </form>
+                <div id="forgot-password">
+                    <a href="/forgot.php">Forgot your password?</a>
+                </div>
+                <p><?=$msg?></p>
             </div>
-            <p><?=$msg?></p>
         </div>
 
         <?PHP include "footer.html";?>
