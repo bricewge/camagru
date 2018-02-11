@@ -53,8 +53,8 @@ else if ($_POST['action'] === "register") {
     // Add activation email to database
     $token = add_email($db, $username, "activate");
     // Send email
-    $email_content = "To activate your account click on the following link: http://localhost:8000/activate.php?token=$token";
-    mail($email, "Active your Camagru account", $email_content);
+    $email_content = "<html>To activate your account click <a href='http://" .$_SERVER['SERVER_NAME']. ':' .$_SERVER['SERVER_PORT']. "/activate.php?token=$token'>here</a>.</html>";
+    mail($email, "Active your Camagru account", $email_content, "Content-Type: text/html; charset=ISO-8859-1\r\n");
     $msg = ("To activate your account, click on the link on the email you received from us.");
   }
 }
