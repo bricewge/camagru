@@ -2,7 +2,7 @@
 $DB_HOST = "127.0.0.1";
 $DB_PORT = "3306";
 $DB_ROOT = "root";
-$DB_ROOT_PASSWORD = "";
+$DB_ROOT_PASSWORD = "trololol";
 
 $DB_NAME = "camagru";
 $DB_USER = "camagru";
