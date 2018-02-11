@@ -10,10 +10,21 @@ CLOSED: [2018-01-31 mer. 00:47]
 CLOSED: [2018-02-01 jeu. 14:27]
 * DONE Add footer 
 CLOSED: [2018-01-31 mer. 17:03]
-* TODO Add pictures taking
+* DONE Add pictures taking
+CLOSED: [2018-02-11 Dim 17:47]
 * DONE Add gallery
 CLOSED: [2018-02-11 dim. 11:12]
-* TODO Fix PHP's sendmail with NixOS
+* CANCELLED Fix PHP's sendmail with NixOS
+CLOSED: [2018-02-11 Dim 17:47]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2018-02-11 Dim 17:47] \\
+  Works as expected at 42
+:END:
+* TODO Add image specific page [0/3]
+- [ ] comments
+- [ ] likes
+- [ ] remove image
+* TODO Add image mask and proccess it server side
 * TODO Verify that the password isn't common
 * Errors messages
 ** DONE Use proper error messaging
