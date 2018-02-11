@@ -1,5 +1,16 @@
 <?PHP
 
+function db_connect() {
+    global $DB_DSN, $DB_USER, $DB_PASSWORD, $DB_OPTIONS;
+    try {
+        $result = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $DB_OPTIONS);
+    } catch (PDOException $e) {
+        error_log("DB ERROR: ". $e->getMessage());
+        die();
+    }
+    return $result;
+}
+
 function user_exists($db, $username) {
   $query = "SELECT username FROM users WHERE username = :username;";
   $stmt = $db->prepare($query);
