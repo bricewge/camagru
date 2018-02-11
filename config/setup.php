@@ -10,8 +10,10 @@ try {
                      $DB_ROOT_PASSWORD,
                      $DB_OPTIONS);
 
-  $db_exists = $db_root->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$DB_NAME'");
-  if ($db_exists !== 0) {
+  $db_exists = $db_root->prepare("SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = :db_name");
+  $db_exists->bindParam(':db_name', $DB_NAME, PDO::PARAM_STR);
+  $db_exists->execute();
+  if ($db_exists->rowCount() !== 0) {
     $db_root->exec("DROP DATABASE `$DB_NAME`");
   }
   $db_root->exec("CREATE DATABASE `$DB_NAME`;
