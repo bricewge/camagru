@@ -39,7 +39,7 @@ if ($row_count !== 0) {
 
 $images = "";
 foreach(get_images($db, $offset, $items_per_page) as $image) {
-  $images .= "<a href='/image.php?image=". basename($image['path']) ."'><img src='". $image['path'] ."' alt='image'></a>";
+  $images .= "<a href='/image.php?image=". basename($image['path']) ."'><img src='". $image['path'] ."'></a>";
 }
 
 // Page navigation links

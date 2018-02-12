@@ -28,9 +28,9 @@
                 <h2>Upload a picture</h2>
                 <div class="upload">
                     <form action="editing.php" method="POST" enctype="multipart/form-data">
-                        <input type="file" name="image">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                        <input type="file" accept="image/png, image/jpeg, image/gif" name="image">
                         <button name="action" value="upload" type='submit'>Upload</button>
-                        <!-- <input type="submit"> -->
                     </form>
                 </div>
                 <p><?=$msg?></p>

@@ -43,6 +43,8 @@ try {
   UNIQUE KEY `email` (`email`));");
   $db->exec("INSERT INTO users(username, email, password, active)
   VALUES('toto', 'to@t.o', '". password_hash("toto", PASSWORD_BCRYPT) ."', 1);");
+  $db->exec("INSERT INTO users(username, email, password, active)
+  VALUES('titi', 'ti@t.i', '". password_hash("titi", PASSWORD_BCRYPT) ."', 1);");
 
 // ** emails
   $db->exec("CREATE TABLE `emails` (
@@ -61,20 +63,21 @@ try {
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));");
 
+// NOTE In tables comments and likes the key image_id is the basename of the path's iamge value
+
 // ** likes
   $db->exec("CREATE TABLE `likes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `image_id` int(255) NOT NULL,
+  `image_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`));");
 
 // ** comments
   $db->exec("CREATE TABLE `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `image_id` int(255) NOT NULL,
+  `image_id` varchar(255) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `comment_number` int(11) NOT NULL,
   PRIMARY KEY (`id`));");
 
 

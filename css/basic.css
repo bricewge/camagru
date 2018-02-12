@@ -87,7 +87,7 @@ footer {
 /* * Login */
 .login {
     margin:0 auto;
-    width:30vw;
+    /* width:30vw; */
 }
 .login h2 {
     text-align: center;
@@ -145,8 +145,8 @@ input {
 /* * Grid test */
 body {
     display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-gap: 20px; */
+    grid-template-columns: 1fr 1fr auto;
     /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) ) ; */
     grid-template-rows: 60px 4fr auto;
     grid-template-areas:
@@ -154,14 +154,11 @@ body {
     "content content sidebar"
     "footer  footer  footer";
 }
-.sidebar {
-    grid-area: sidebar;
-    position: relative;
-}
-
 .content {
     grid-area: content;
     grid-column: auto / span 2;
+    margin: 0 10vw;
+    text-align: center;
 }
 
 header {
@@ -172,31 +169,43 @@ footer {
     grid-area: footer;
 }
 .sidebar {
+    grid-area: sidebar;
+    /* position: relative; */
+    width: 25vw;
     display : flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    /* justify-content: space-between; */
+    /* align-items: center; */
 }
 .sidebar img {
-    display: block;
-    max-width: 100%;
-    max-height: 300px;
-    height: auto;
+    object-fit: contain;
+    margin: 10px;
+    /* display: block; */
+    /* max-width: 100%; */
+    /* max-height: 300px; */
+    /* height: auto; */
 }
 /* * Index */
 /* #take_picture a { */
 /*     color: #268bd2; */
 /* } */
-.index {
+.images {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
 }
-.index img {
-    display: block;
+.images img {
     max-width: 100%;
     max-height: 300px;
     height: auto;
+    margin: 10px 0;
 }
 .pagination {
     display: flex;
     justify-content: space-evenly;
+}
+.pagination p {
+    padding: 0 20px;
 }
