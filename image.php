@@ -53,7 +53,11 @@ if (! empty($_SESSION['username'])) {
             $stmt->bindParam(':path', $path, PDO::PARAM_STR, 255);
             $stmt->bindParam(':image_id', $image_id, PDO::PARAM_STR, 255);
             $stmt->execute();
-            $stmt->fetchAll();
+            $stmt->closeCursor();
+            $stmt->execute();
+            $stmt->closeCursor();
+            $stmt->execute();
+            $stmt->closeCursor();
         } catch (PDOException $e) {
             error_log("DB ERROR: ". $e->getMessage());
         }
@@ -96,7 +100,7 @@ if (! empty($_SESSION['username'])) {
     else
         $actions .= '<form action="" method="post"><button type="submit" name="like" value="true">Like</button></form>';
 
-    // ** delete image
+// ** delete image
     if (image_owner($db, $image_id) === $_SESSION['username']) {
         $actions .= '<form action="" method="post"><button type="submit" name="delete" value="true">Delete your image</button></form>';
     }
