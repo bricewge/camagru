@@ -32,6 +32,10 @@ else if ($_POST['action'] === "register") {
     $msg = "ERROR: The fields aren't all filled.";
   else if (strlen($_POST['password']) < 8)
     $msg = "ERROR: Password is less than 8 characters.";
+  else if ($_POST['password'] === $username || $_POST['password'] === $email)
+      $msg = "ERROR: Password can't be your username or email.";
+  else if (common_password($_POST['password']))
+      $msg = "ERROR: Your password is too common.";
   else if (user_exists($db, $username))
     $msg = "ERROR: The user $username already exists.";
   else if (email_exists($db, $email))

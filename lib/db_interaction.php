@@ -136,4 +136,14 @@ function get_comments($db, $image_id) {
     return $result;
 }
 
+function common_password($input) {
+    $passwords = file("assets/passwords.txt");
+    $input = strtolower($input);
+    foreach($passwords as $password) {
+        if ($input == trim($password))
+            return true;
+    }
+    return false;
+}
+
 ?>
