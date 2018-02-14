@@ -14,22 +14,26 @@
         <div class="content">
             <div class="editing">
                 <h2>Take a picture</h2>
-                <div class="capture">
-                    <div class="camera">
-                        <video id="video">Video stream not available.</video>
-                    </div>
-                    <canvas id="canvas">
-                    </canvas>
-                    <div class="output">
-                        <img id="photo" alt="The screen capture will appear in this box.">
-                    </div>
+                <div class="webcam">
+                    <video id="player" width=320 height=240 autoplay></video>
+                    <canvas id="canvas" width=320 height=240 hidden></canvas>
                 </div>
-                <button id="startbutton">Take photo</button>
+                <form id="webcam" action="editing.php" method="POST">
+                    <select id="layer" name="layer" required>
+                        <option value="" selected>Select a layer</option>
+                        <option value="yoshi">Yoshi</option>
+                        <option value="mario">Mario</option>
+                        <option value="peach">Peach</option>
+                        <option value="bowser">Bowser</option>
+                    </select>
+                    <input type="hidden" id="webcamImg" name="webcamImg"/>
+                    <button type="submit" id="capture" name="action" value="webcam" disabled>Take photo</button>
+                </form>
                 <h2>Upload a picture</h2>
                 <div class="upload">
                     <form action="editing.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                        <input type="file" accept="image/png, image/jpeg, image/gif" name="image">
+                        <input type="file" accept="image/png, image/jpeg, image/gif" name="image" capture>
                         <button name="action" value="upload" type='submit'>Upload</button>
                     </form>
                 </div>
@@ -42,120 +46,48 @@
         <?PHP include "footer.html";?>
 
         <script>
-         (function() {
-             // The width and height of the captured photo. We will set the
-             // width to the value defined here, but the height will be
-             // calculated based on the aspect ratio of the input stream.
+         const player = document.getElementById('player');
+         const canvas = document.getElementById('canvas');
+         const context = canvas.getContext('2d');
+         const captureButton = document.getElementById('capture');
+         const selectLayer = document.getElementById('layer');
+         const webcamImg = document.getElementById('webcamImg');
+         var webcamAccess = false;
 
-             var width = 320;    // We will scale the photo width to this
-             var height = 0;     // This will be computed based on the input stream
+         selectLayer.addEventListener('change', () => {
+             if (! selectLayer.value || selectLayer.value === 0 || ! webcamAccess)
+                 captureButton.disabled = true;
+             else
+                 captureButton.disabled = false;
+         });
 
-             // |streaming| indicates whether or not we're currently streaming
-             // video from the camera. Obviously, we start at false.
-
-             var streaming = false;
-
-             // The various HTML elements we need to configure or control. These
-             // will be set by the startup() function.
-
-             var video = null;
-             var canvas = null;
-             var photo = null;
-             var startbutton = null;
-
-             function startup() {
-                 video = document.getElementById('video');
-                 canvas = document.getElementById('canvas');
-                 photo = document.getElementById('photo');
-                 startbutton = document.getElementById('startbutton');
-
-                 navigator.getMedia = ( navigator.getUserMedia ||
-                                        navigator.webkitGetUserMedia ||
-                                        navigator.mozGetUserMedia ||
-                                        navigator.msGetUserMedia);
-
-                 navigator.getMedia(
-                     {
-                         video: true,
-                         audio: false
-                     },
-                     function(stream) {
-                         if (navigator.mozGetUserMedia) {
-                             video.mozSrcObject = stream;
-                         } else {
-                             var vendorURL = window.URL || window.webkitURL;
-                             video.src = vendorURL.createObjectURL(stream);
-                         }
-                         video.play();
-                     },
-                     function(err) {
-                         console.log("An error occured! " + err);
-                     }
-                 );
-
-                 video.addEventListener('canplay', function(ev){
-                     if (!streaming) {
-                         height = video.videoHeight / (video.videoWidth/width);
-
-                         // Firefox currently has a bug where the height can't be read from
-                         // the video, so we will make assumptions if this happens.
-
-                         if (isNaN(height)) {
-                             height = width / (4/3);
-                         }
-
-                         video.setAttribute('width', width);
-                         video.setAttribute('height', height);
-                         canvas.setAttribute('width', width);
-                         canvas.setAttribute('height', height);
-                         streaming = true;
-                     }
-                 }, false);
-
-                 startbutton.addEventListener('click', function(ev){
-                     takepicture();
-                     ev.preventDefault();
-                 }, false);
-
-                 clearphoto();
+         function main() {
+             const supported = 'mediaDevices' in navigator;
+             if (!supported) {
+                 console.log("Your navigator don't support webcams");
+                 return;
              }
 
-             // Fill the photo with an indication that none has been
-             // captured.
+             const constraints = {
+                 video: true,
+             };
 
-             function clearphoto() {
-                 var context = canvas.getContext('2d');
-                 context.fillStyle = "#AAA";
-                 context.fillRect(0, 0, canvas.width, canvas.height);
+             captureButton.addEventListener('click', () => {
+                 // Draw the video frame to the canvas.
+                 context.drawImage(player, 0, 0, canvas.width, canvas.height);
+                 webcamImg.value = canvas.toDataURL();
+             });
 
-                 var data = canvas.toDataURL('image/png');
-                 photo.setAttribute('src', data);
-             }
+             // Attach the video stream to the video element and autoplay.
+             navigator.mediaDevices.getUserMedia(constraints)
+                      .then((stream) => {
+                          player.srcObject = stream;
+                          webcamAccess = true;
+                      });
+         }
 
-             // Capture a photo by fetching the current contents of the video
-             // and drawing it into a canvas, then converting that to a PNG
-             // format data URL. By drawing it on an offscreen canvas and then
-             // drawing that to the screen, we can change its size and/or apply
-             // other changes before drawing it.
 
-             function takepicture() {
-                 var context = canvas.getContext('2d');
-                 if (width && height) {
-                     canvas.width = width;
-                     canvas.height = height;
-                     context.drawImage(video, 0, 0, width, height);
-
-                     var data = canvas.toDataURL('image/png');
-                     photo.setAttribute('src', data);
-                 } else {
-                     clearphoto();
-                 }
-             }
-
-             // Set up our event listener to run the startup process
-             // once loading is complete.
-             window.addEventListener('load', startup, false);
-         })();
+         main();
         </script>
     </body>
 </html>

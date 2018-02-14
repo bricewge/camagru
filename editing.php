@@ -10,14 +10,36 @@ require_once("config/database.php");
 $db = db_connect();
 
 $msg = "";
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if (empty($_POST['action'])) {
   include_once("view/editing.html");
   die();
 }
-
+else if ($_POST['action'] === 'webcam') {
+    if (empty($_POST['layer'] || empty($_POST['webcamImg']))) {
+        $msg = "ERROR: you nedd to select a valid layer AND take a working webcam";
+        include_once("view/editing.html");
+        die();
+    }
+    if (! in_array($_POST['layer'],
+                 array('yoshi', 'mario', 'peach', 'bowser'), true )) {
+        $msg = 'ERROR: Your layer is invalid.';
+        include_once("view/editing.html");
+        die();
+    }
+    $img = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['webcamImg']));
+    file_put_contents("upload/webcam.png", $img);
+    // TODO Error if not an image
+    $back = imagecreatefromstring(file_get_contents("upload/webcam.png"));
+    $layer = imagecreatefromstring(file_get_contents("assets/" .$_POST['layer']. ".png"));
+    $layer_size = getimagesize("assets/" .$_POST['layer']. ".png");
+    imagealphablending($layer, true);
+    imagesavealpha($layer, true);
+    imagecopy($back, $layer, 0, 0, 0, 0, $src_size[0], $src_size[1]);
+    imagepng($back, 'upload/test.png');
+}
 
 // Check if image file is a actual image
-if(! empty($_FILES["image"])) {
+if ($_POST['action'] === 'upload') {
   if (! @getimagesize($_FILES["image"]["tmp_name"])) {
     $msg = "ERROR: File is not an image.";
   }
