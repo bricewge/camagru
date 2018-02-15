@@ -157,5 +157,14 @@ function common_password($input) {
     }
     return false;
 }
-
+function add_image($db, $path, $username) {
+    try  {
+        $stmt = $db->prepare("INSERT INTO images(username, path) VALUES(:username, :path);");
+        $stmt->bindParam(":username", $username, PDO::PARAM_STR, 255);
+        $stmt->bindParam(":path", $path, PDO::PARAM_STR, 255);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        error_log("DB ERROR: ". $e->getMessage());
+    }
+}
 ?>
