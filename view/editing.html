@@ -18,7 +18,7 @@
                     <video id="player" width=320 height=240 autoplay></video>
                     <canvas id="canvas" width=320 height=240 hidden></canvas>
                 </div>
-                <form id="webcam" action="editing.php" method="POST">
+                <form id="webcam" action="editing.php" method="POST" enctype="multipart/form-data">
                     <select id="layer" name="layer" required>
                         <option value="" selected>Select a layer</option>
                         <option value="yoshi">Yoshi</option>
@@ -28,15 +28,10 @@
                     </select>
                     <input type="hidden" id="webcamImg" name="webcamImg"/>
                     <button type="submit" id="capture" name="action" value="webcam" disabled>Take photo</button>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                    <input type="file" accept="image/png, image/jpeg, image/gif" name="image">
+                    <button type='submit' id='upload' name="action" value="upload" disabled>Upload</button>
                 </form>
-                <h2>Upload a picture</h2>
-                <div class="upload">
-                    <form action="editing.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                        <input type="file" accept="image/png, image/jpeg, image/gif" name="image" capture>
-                        <button name="action" value="upload" type='submit'>Upload</button>
-                    </form>
-                </div>
                 <p><?=$msg?></p>
             </div>
         </div>
@@ -50,15 +45,21 @@
          const canvas = document.getElementById('canvas');
          const context = canvas.getContext('2d');
          const captureButton = document.getElementById('capture');
+         const uploadButton = document.getElementById('upload');
          const selectLayer = document.getElementById('layer');
          const webcamImg = document.getElementById('webcamImg');
          var webcamAccess = false;
 
          selectLayer.addEventListener('change', () => {
-             if (! selectLayer.value || selectLayer.value === 0 || ! webcamAccess)
+             if (! selectLayer.value || selectLayer.value === 0) {
                  captureButton.disabled = true;
-             else
-                 captureButton.disabled = false;
+                 uploadButton.disabled = true;
+             }
+             else {
+                 if (webcamAccess)
+                     captureButton.disabled = false;
+                 uploadButton.disabled = false;
+                 }
          });
 
          function main() {

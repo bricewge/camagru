@@ -55,9 +55,25 @@ else if ($_POST['action'] === 'upload') {
         $msg = "ERROR: Only JPG, PNG & GIF files are allowed.";
     }
     else {
-        $image_path = "upload/" . bin2hex(random_bytes(32));
-        move_uploaded_file($_FILES["image"]["tmp_name"], $image_path);
-        add_image($db, $image_path, $_SESSION['username']);
+        $img = $_FILES["image"]["tmp_name"];
+        $layer_file = "assets/" .$_POST['layer']. ".png";
+        $back = @imagecreatefromstring(@file_get_contents($img));
+        $layer = @imagecreatefrompng($layer_file);
+        if ((! $back) || (! $layer)) {
+            $msg = "ERROR: Invalid image.";
+        }
+        else {
+            $layer_size = getimagesize($layer_file);
+            @imagealphablending($layer, true);
+            @imagesavealpha($layer, true);
+            @imagecopy($back, $layer, 0, 0, 0, 0, $layer_size[0], $layer_size[1]);
+            $image_path = "upload/" . bin2hex(random_bytes(32));
+            @imagepng($back, $image_path);
+            @add_image($db, $image_path, $_SESSION['username']);
+        }
+        // $image_path = "upload/" . bin2hex(random_bytes(32));
+        // move_uploaded_file($_FILES["image"]["tmp_name"], $image_path);
+        // add_image($db, $image_path, $_SESSION['username']);
     }
 }
 
