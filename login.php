@@ -3,6 +3,10 @@
 session_start();
 
 $msg = "";
+
+if (!empty($_SESSION["username"])) {
+    header("Location: /index.php");
+}
 if (! empty($_GET["logout"]))
   unset($_SESSION["username"]);
 if (empty($_POST["action"])) {
