@@ -11,13 +11,15 @@
     <body>
         <?PHP include "header.html";?>
 
-        <div class="login">
-            <h2>Forgot password</h2>
-            <form method='post'>
-                <input name="email" type="email" placeholder="Email" required>
-                <button name="action" value="forgot" type='submit'>Send reset email</button>
-            </form>
-            <p><?=$msg?></p>
+        <div class="content">
+            <div class="login">
+                <h2>Forgot password</h2>
+                <form method='post'>
+                    <input name="email" type="email" placeholder="Email" required>
+                    <button name="action" value="forgot" type='submit'>Send reset email</button>
+                </form>
+                <p><?=$msg?></p>
+            </div>
         </div>
 
         <?PHP include "footer.html";?>

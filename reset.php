@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   die();
 }
 
+require_once("lib/db_interaction.php");
 require_once("config/database.php");
 $db = db_connect();
 

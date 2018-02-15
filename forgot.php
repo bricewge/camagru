@@ -1,8 +1,9 @@
 <?PHP
 
+session_start();
 $msg = "";
 
-if (empty($_POST['email'])) {
+if (empty($_POST['email']) || (! empty($_SESSION["username"]))) {
   include_once("view/forgot.html");
   die();
 }
@@ -20,7 +21,7 @@ if (empty($username))
 else {
   // Send email with reset link
   $token = add_email($db, $username, "reset");
-  $email_content = "To reset your account's password follow this link: http://localhost:8000/activate.php?token=$token";
+  $email_content = "To reset your account's password follow this link: http://"  .$_SERVER['SERVER_NAME']. ':' .$_SERVER['SERVER_PORT']. "/reset.php?token=$token";
   mail($email, "Reset your password for your Camagru account", $email_content);
   // Inform that the email has been sent
   $msg = ("To reset your account's password, click on the link on the email you received from us.");

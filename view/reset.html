@@ -11,14 +11,16 @@
     <body>
         <?PHP include "header.html";?>
 
-        <div class="login">
-            <h2>Reset password</h2>
-            <form method='post'>
-                <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum" required>
-                <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()" required>
-                <button name="action" value="register" type='submit'>Reset password</button>
-            </form>
-            <p><?=$msg?></p>
+        <div class="content">
+            <div class="login">
+                <h2>Reset password</h2>
+                <form method='post'>
+                    <input id="password" name="password" type="password" placeholder="New password" oninput="confirm_password()" pattern=".{8,}" title="8 characters minimum" required>
+                    <input id="password_repeat" type="password" placeholder="Confirm password" oninput="confirm_password()" required>
+                    <button name="action" value="register" type='submit'>Reset password</button>
+                </form>
+                <p><?=$msg?></p>
+            </div>
         </div>
 
         <?PHP include "footer.html";?>
