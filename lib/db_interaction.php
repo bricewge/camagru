@@ -110,17 +110,29 @@ function image_owner($db, $image_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['username'];
 }
 
-function image_exists($db, $image_id) {
+function username_settings($db, $username) {
     try {
-        $query = "SELECT * FROM images WHERE id = :image_id;";
+        $stmt = $db->prepare("SELECT notify_on_comment,email FROM users WHERE username = :username;");
+        $stmt->bindParam(":username", $username, PDO::PARAM_STR, 255);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        error_log("DB ERROR: ". $e->getMessage());
+    }
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function image_exists($db, $image_id) {
+    $path = "upload/".$image_id;
+    try {
+        $query = "SELECT * FROM images WHERE path = :path;";
         $stmt = $db->prepare($query);
-        $stmt->bindParam(":image_id", $image_id, PDO::PARAM_STR, 255);
+        $stmt->bindParam(":path", $path, PDO::PARAM_STR, 255);
         $stmt->execute();
     } catch (PDOException $e) {
         error_log("DB ERROR: ". $e->getMessage());
     }
     // TODO Verify if file exists
-    return !$stmt->fetch(PDO::FETCH_ASSOC);
+    return !!$stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function get_comments($db, $image_id) {

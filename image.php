@@ -68,7 +68,7 @@ if (! empty($_SESSION['username'])) {
 
 // ** add comment
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-    if ($comment) {
+    if (! empty($comment)) {
         try {
             $stmt = $db->prepare("INSERT INTO comments (username, image_id, content) VALUES(:username, :image_id, :content);");
             $stmt->bindParam(':username', $_SESSION['username'], PDO::PARAM_STR, 255);
@@ -77,6 +77,13 @@ if (! empty($_SESSION['username'])) {
             $stmt->execute();
         } catch (PDOException $e) {
             error_log("DB ERROR: ". $e->getMessage());
+        }
+        // Send email
+        $owner = image_owner($db, $image_id);
+        $owner_settings = username_settings($db, $owner);
+        if ($owner != $_SESSION['username'] && $owner_settings['notify_on_comment']) {
+            $email_content = "<html>Your <a href='http://" .$_SERVER['SERVER_NAME']. ':' .$_SERVER['SERVER_PORT']. "/image.php?image=$image_id'>image</a> got commented.</html>";
+            mail($owner_settings['email'], "Someone commented your image", $email_content, "Content-Type: text/html; charset=ISO-8859-1\r\n");
         }
     }
 }
